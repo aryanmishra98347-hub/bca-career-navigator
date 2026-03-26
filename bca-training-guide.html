@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BCA Career Navigator — Training Program 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --ink: #0a0a0f;
+  --paper: #f5f3ee;
+  --accent: #ff5533;
+  --accent2: #1a1aff;
+  --gold: #f5c842;
+  --muted: #6b6b7a;
+  --card-bg: #ffffff;
+  --border: #e2dfd8;
+  --green: #00c471;
+  --purple: #7c3aed;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--paper)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+
+/* ─── NOISE OVERLAY ─── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;opacity:.4;
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 3rem;
+  backdrop-filter:blur(20px);
+  background:rgba(245,243,238,.88);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;
+  font-weight:800;font-size:1.1rem;
+  letter-spacing:-0.02em;
+}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{
+  font-size:.85rem;font-weight:500;
+  color:var(--muted);text-decoration:none;
+  transition:color .2s;letter-spacing:.02em;
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{
+  background:var(--ink);color:#fff;
+  padding:.45rem 1.2rem;border-radius:50px;
+  font-size:.8rem;font-weight:500;text-decoration:none;
+  transition:background .2s,transform .15s;
+}
+.nav-cta:hover{background:var(--accent);transform:translateY(-1px)}
+
+/* ─── HERO ─── */
+#hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:8rem 3rem 4rem;
+  position:relative;overflow:hidden;
+}
+.hero-bg-text{
+  position:absolute;
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:22vw;line-height:1;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(10,10,15,.06);
+  top:50%;transform:translateY(-50%);
+  right:-2vw;white-space:nowrap;
+  pointer-events:none;
+  animation:drift 20s ease-in-out infinite alternate;
+}
+@keyframes drift{from{transform:translateY(-48%)}to{transform:translateY(-52%)}}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--ink);color:var(--gold);
+  padding:.3rem 1rem;border-radius:50px;
+  font-size:.75rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:1.5rem;
+  animation:fadeUp .8s ease both;
+}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.8rem,6vw,5.5rem);
+  font-weight:800;line-height:1.05;
+  letter-spacing:-0.03em;
+  max-width:800px;
+  animation:fadeUp .8s .15s ease both;
+}
+.hero-title .line2{color:var(--accent)}
+.hero-sub{
+  margin-top:1.5rem;
+  font-size:1.1rem;color:var(--muted);
+  max-width:520px;line-height:1.7;
+  font-weight:300;
+  animation:fadeUp .8s .3s ease both;
+}
+.hero-actions{
+  display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;
+  animation:fadeUp .8s .45s ease both;
+}
+.btn-primary{
+  background:var(--accent);color:#fff;
+  padding:.8rem 2rem;border-radius:50px;
+  font-size:.95rem;font-weight:500;text-decoration:none;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 4px 20px rgba(255,85,51,.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,85,51,.4)}
+.btn-secondary{
+  background:transparent;color:var(--ink);
+  padding:.8rem 2rem;border-radius:50px;
+  font-size:.95rem;font-weight:500;text-decoration:none;
+  border:1.5px solid var(--ink);
+  transition:background .2s,color .2s;
+}
+.btn-secondary:hover{background:var(--ink);color:#fff}
+.hero-stats{
+  display:flex;gap:3rem;margin-top:4rem;
+  animation:fadeUp .8s .6s ease both;
+}
+.stat{border-left:2px solid var(--border);padding-left:1.2rem}
+.stat-num{
+  font-family:'Syne',sans-serif;
+  font-size:2rem;font-weight:800;
+  color:var(--accent);
+}
+.stat-label{font-size:.8rem;color:var(--muted);margin-top:.2rem}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ─── SECTION SHARED ─── */
+section{padding:6rem 3rem}
+.section-tag{
+  display:inline-block;
+  font-size:.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1rem;
+}
+.section-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:800;line-height:1.1;
+  letter-spacing:-0.025em;
+  max-width:700px;
+}
+.section-title span{color:var(--accent)}
+.section-sub{
+  color:var(--muted);font-size:1rem;
+  max-width:560px;line-height:1.7;
+  margin-top:.8rem;font-weight:300;
+}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap{
+  overflow:hidden;
+  background:var(--ink);
+  padding:.9rem 0;
+  border-top:1px solid rgba(255,255,255,.1);
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.marquee-track{
+  display:flex;gap:0;
+  animation:marquee 30s linear infinite;
+  white-space:nowrap;
+}
+.marquee-track span{
+  font-family:'Syne',sans-serif;
+  font-size:.85rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+  padding:0 2rem;
+}
+.marquee-track span.hi{color:var(--gold)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── PROGRAMS GRID ─── */
+#programs{background:var(--ink);color:#fff}
+#programs .section-title{color:#fff}
+#programs .section-sub{color:rgba(255,255,255,.5)}
+#programs .section-tag{color:var(--gold)}
+.programs-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:1.5rem;margin-top:3rem;
+}
+.prog-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;padding:2rem;
+  transition:transform .3s,background .3s,border-color .3s;
+  cursor:pointer;position:relative;overflow:hidden;
+}
+.prog-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--c,var(--accent));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s;
+}
+.prog-card:hover{
+  transform:translateY(-6px);
+  background:rgba(255,255,255,.07);
+  border-color:rgba(255,255,255,.15);
+}
+.prog-card:hover::before{transform:scaleX(1)}
+.prog-icon{
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:1.2rem;
+  background:var(--c,var(--accent));
+  opacity:.9;
+}
+.prog-name{
+  font-family:'Syne',sans-serif;
+  font-size:1.15rem;font-weight:700;
+  margin-bottom:.5rem;
+}
+.prog-fee{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.75rem;font-weight:600;
+  color:var(--gold);background:rgba(245,200,66,.1);
+  padding:.25rem .8rem;border-radius:50px;
+  border:1px solid rgba(245,200,66,.2);
+  margin-bottom:.8rem;
+}
+.prog-desc{
+  font-size:.875rem;color:rgba(255,255,255,.55);
+  line-height:1.65;font-weight:300;
+}
+.prog-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.prog-tag{
+  font-size:.7rem;padding:.2rem .65rem;
+  border-radius:50px;
+  background:rgba(255,255,255,.07);
+  color:rgba(255,255,255,.5);
+  border:1px solid rgba(255,255,255,.1);
+}
+.prog-more-btn{
+  margin-top:1.2rem;
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.8rem;font-weight:500;
+  color:var(--c,var(--accent));
+  background:none;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:gap .2s;
+}
+.prog-more-btn:hover{gap:.7rem}
+
+/* ─── DETAIL MODAL ─── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(10,10,15,.8);
+  backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  padding:2rem;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s;
+}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{
+  background:var(--card-bg);
+  border-radius:24px;
+  max-width:860px;width:100%;
+  max-height:90vh;overflow-y:auto;
+  transform:translateY(30px) scale(.97);
+  transition:transform .3s;
+  padding:0;
+}
+.modal-overlay.open .modal{transform:none}
+.modal-header{
+  padding:2.5rem 2.5rem 1.5rem;
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;
+  background:var(--card-bg);
+  border-radius:24px 24px 0 0;
+  z-index:10;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+}
+.modal-close{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--paper);border:none;
+  font-size:1.1rem;cursor:pointer;
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+.modal-close:hover{background:var(--border)}
+.modal-body{padding:2rem 2.5rem 2.5rem}
+.modal-section-title{
+  font-family:'Syne',sans-serif;
+  font-size:1rem;font-weight:700;
+  margin:1.8rem 0 .8rem;
+  padding-bottom:.5rem;
+  border-bottom:1px solid var(--border);
+}
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem;margin-top:.5rem}
+.skill-pill{
+  padding:.45rem .85rem;
+  background:var(--paper);
+  border:1px solid var(--border);
+  border-radius:8px;
+  font-size:.8rem;font-weight:500;
+}
+.skill-pill.core{
+  background:#fff3f0;border-color:#ffd0c8;color:var(--accent);
+}
+.skill-pill.extra{
+  background:#f0f4ff;border-color:#c8d4ff;color:var(--accent2);
+}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:.5rem}
+.pro-list,.con-list{
+  background:var(--paper);border-radius:12px;padding:1rem 1.2rem;
+}
+.pro-list h4{color:var(--green);font-size:.85rem;margin-bottom:.6rem}
+.con-list h4{color:var(--accent);font-size:.85rem;margin-bottom:.6rem}
+.pro-list li,.con-list li{
+  font-size:.8rem;color:var(--muted);
+  line-height:1.6;list-style:none;
+  padding:.2rem 0;padding-left:1.1rem;position:relative;
+}
+.pro-list li::before{content:'✓';position:absolute;left:0;color:var(--green);font-weight:700}
+.con-list li::before{content:'−';position:absolute;left:0;color:var(--accent);font-weight:700}
+.roles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.7rem;margin-top:.5rem}
+.role-card{
+  background:var(--paper);border-radius:10px;
+  padding:.8rem 1rem;
+}
+.role-title{font-size:.85rem;font-weight:600;margin-bottom:.2rem}
+.role-salary{font-size:.75rem;color:var(--green);font-weight:500}
+.role-exp{font-size:.7rem;color:var(--muted)}
+
+/* ─── CHARTS SECTION ─── */
+#growth{background:var(--paper)}
+.charts-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.5rem;margin-top:3rem;
+}
+.chart-card{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:20px;padding:1.8rem;
+}
+.chart-card h3{
+  font-family:'Syne',sans-serif;
+  font-size:.95rem;font-weight:700;
+  margin-bottom:.3rem;
+}
+.chart-card p{font-size:.78rem;color:var(--muted);margin-bottom:1.2rem}
+.chart-wrap{position:relative;height:240px}
+.chart-wrap-tall{position:relative;height:300px}
+
+/* ─── TRAJECTORY ─── */
+#trajectory{background:#f7f5f0}
+.traj-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.5rem;margin-top:3rem;
+}
+.traj-card{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:20px;padding:1.8rem;
+  position:relative;overflow:hidden;
+}
+.traj-card::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--c1,#ff5533),var(--c2,#ff9966));
+}
+.traj-title{
+  font-family:'Syne',sans-serif;
+  font-size:1rem;font-weight:700;margin-bottom:1rem;
+}
+.traj-step{
+  display:flex;gap:.8rem;
+  margin-bottom:.7rem;
+  align-items:flex-start;
+}
+.traj-year{
+  font-size:.7rem;font-weight:700;
+  color:#fff;background:var(--c1,var(--accent));
+  padding:.15rem .5rem;border-radius:4px;
+  white-space:nowrap;margin-top:.15rem;flex-shrink:0;
+}
+.traj-info{font-size:.8rem;line-height:1.5}
+.traj-role{font-weight:600;margin-bottom:.15rem}
+.traj-sal{color:var(--green);font-size:.75rem;font-weight:500}
+
+/* ─── FAQ ─── */
+#faq{background:var(--ink);color:#fff}
+#faq .section-title{color:#fff}
+#faq .section-tag{color:var(--gold)}
+.faq-list{max-width:740px;margin-top:3rem}
+.faq-item{
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.faq-q{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.2rem 0;cursor:pointer;
+  font-size:1rem;font-weight:500;
+  transition:color .2s;
+}
+.faq-q:hover{color:var(--gold)}
+.faq-icon{
+  font-size:1.4rem;color:var(--muted);
+  transition:transform .3s,color .2s;flex-shrink:0;
+}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--gold)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  font-size:.875rem;color:rgba(255,255,255,.55);
+  line-height:1.75;font-weight:300;
+  transition:max-height .35s ease,padding .35s;
+}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:1.2rem}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--ink);color:rgba(255,255,255,.4);
+  padding:3rem;
+  border-top:1px solid rgba(255,255,255,.06);
+  text-align:center;font-size:.8rem;
+}
+footer strong{color:var(--gold)}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.reveal.visible{opacity:1;transform:none}
+
+/* ─── COMPARISON TABLE ─── */
+#compare{background:var(--card-bg)}
+.compare-wrap{overflow-x:auto;margin-top:2.5rem}
+table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:700px}
+thead tr{background:var(--ink);color:#fff}
+thead th{
+  padding:1rem 1.2rem;text-align:left;
+  font-family:'Syne',sans-serif;font-size:.78rem;
+  letter-spacing:.05em;
+}
+tbody tr{border-bottom:1px solid var(--border)}
+tbody tr:hover{background:var(--paper)}
+td{padding:.85rem 1.2rem;color:var(--muted)}
+td:first-child{font-weight:600;color:var(--ink)}
+.tag-badge{
+  display:inline-block;
+  padding:.15rem .55rem;border-radius:4px;
+  font-size:.68rem;font-weight:600;
+  letter-spacing:.03em;
+}
+.tag-high{background:#dcfce7;color:#166534}
+.tag-med{background:#fef9c3;color:#854d0e}
+.tag-low{background:#fee2e2;color:#991b1b}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  section{padding:4rem 1.5rem}
+  #hero{padding:7rem 1.5rem 3rem}
+  .charts-grid{grid-template-columns:1fr}
+  .pros-cons{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+  .modal-body{padding:1.5rem}
+  .modal-header{padding:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BCA <span>Navigator</span></div>
+  <ul class="nav-links">
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#growth">Salary Growth</a></li>
+    <li><a href="#trajectory">Career Path</a></li>
+    <li><a href="#compare">Compare</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#programs" class="nav-cta">Explore Courses →</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">BCA</div>
+  <div>
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      VSICS · DAMS · VSIPS — Training Program 2026
+    </div>
+    <h1 class="hero-title">
+      Choose your<br>
+      <span class="line2">Career Path.</span><br>
+      Own your future.
+    </h1>
+    <p class="hero-sub">
+      Your complete guide to the Job Oriented Training Program 2026. Explore every course, understand the job market, skill requirements, salary data, and career trajectories — all in one place.
+    </p>
+    <div class="hero-actions">
+      <a href="#programs" class="btn-primary">Explore All Courses</a>
+      <a href="#compare" class="btn-secondary">Compare Programs</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Training programs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">70–80</div>
+        <div class="stat-label">Training hours</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">₹5K</div>
+        <div class="stat-label">Starting from</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Career opportunities</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="mTrack"></div>
+</div>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="section-tag">Training Programs</div>
+  <h2 class="section-title">8 paths. One <span>bright future.</span></h2>
+  <p class="section-sub">Click any program to explore the full skill stack, job roles, salary data, pros & cons, and everything you need to decide confidently.</p>
+  <div class="programs-grid" id="programsGrid"></div>
+</section>
+
+<!-- GROWTH CHARTS -->
+<section id="growth">
+  <div class="section-tag reveal">Salary & Market Data</div>
+  <h2 class="section-title reveal">Real numbers. <span>Real growth.</span></h2>
+  <p class="section-sub reveal">Industry salary data for 2024–2026. All figures in Indian Rupees (LPA = Lakhs Per Annum). Sources: Glassdoor India, Naukri, LinkedIn Salary Insights, AmbitionBox.</p>
+  <div class="charts-grid reveal">
+    <div class="chart-card">
+      <h3>Average Starting Salary by Program (LPA)</h3>
+      <p>Fresher-level CTC across all 8 tracks — India market 2025</p>
+      <div class="chart-wrap"><canvas id="startSalChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>5-Year Salary Growth (LPA)</h3>
+      <p>Expected salary trajectory from year 0 → 5 for top tracks</p>
+      <div class="chart-wrap"><canvas id="growthChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Job Demand Index 2025 (India)</h3>
+      <p>Relative hiring volume on Naukri + LinkedIn, indexed to 100</p>
+      <div class="chart-wrap"><canvas id="demandChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Remote Work Opportunity (%)</h3>
+      <p>Percentage of job postings that offer remote/hybrid work</p>
+      <div class="chart-wrap"><canvas id="remoteChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER TRAJECTORY -->
+<section id="trajectory">
+  <div class="section-tag reveal">Career Roadmap</div>
+  <h2 class="section-title reveal">Where does each <span>path lead?</span></h2>
+  <p class="section-sub reveal">A realistic 10-year career roadmap for each specialisation — roles, responsibilities and expected compensation at each milestone.</p>
+  <div class="traj-grid" id="trajGrid"></div>
+</section>
+
+<!-- COMPARE TABLE -->
+<section id="compare">
+  <div class="section-tag reveal">Side-by-side Comparison</div>
+  <h2 class="section-title reveal">Compare all <span>programs</span></h2>
+  <p class="section-sub reveal">A quick snapshot to help you decide. All data based on 2025 India job market.</p>
+  <div class="compare-wrap reveal">
+    <table id="compareTable">
+      <thead>
+        <tr>
+          <th>Program</th>
+          <th>Fee</th>
+          <th>Prerequisite</th>
+          <th>Avg. Starting Salary</th>
+          <th>Job Demand</th>
+          <th>Difficulty</th>
+          <th>Remote Jobs</th>
+        </tr>
+      </thead>
+      <tbody id="compareBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-tag">Questions & Answers</div>
+  <h2 class="section-title">Got questions?<br>We've got <span style="color:var(--gold)">answers.</span></h2>
+  <div class="faq-list" id="faqList"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Crafted for BCA 2nd Semester Students — <strong>VSICS | DAMS | VSIPS</strong></p>
+  <p style="margin-top:.5rem">Training & Placement Cell · Job Oriented Training Program 2026</p>
+  <p style="margin-top:.5rem;font-size:.72rem">Salary data sourced from Glassdoor India, Naukri.com, LinkedIn, AmbitionBox (2024–2025 reports). For guidance purposes only.</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────
+const programs = [
+  {
+    id:'java-core',
+    name:'Java Core',
+    icon:'☕',
+    color:'#f59e0b',
+    fee:'₹5,000',
+    prereq:'None',
+    startSalary:3.5,
+    demand:88,
+    remote:62,
+    difficulty:'Medium',
+    desc:'Java Core is the bedrock of enterprise software. You\'ll master object-oriented programming, the Java Virtual Machine, data structures, and the foundations every backend and Android developer needs. Java remains the #1 language in Indian IT companies like TCS, Infosys, and Wipro.',
+    usedIn:['Enterprise Software','Android Development','Backend APIs','Banking Systems','Government IT','E-commerce Platforms'],
+    coreSkills:[
+      {name:'Java Syntax & OOPs',type:'core'},
+      {name:'Classes & Objects',type:'core'},
+      {name:'Inheritance & Polymorphism',type:'core'},
+      {name:'Exception Handling',type:'core'},
+      {name:'Collections Framework',type:'core'},
+      {name:'File I/O & Serialization',type:'core'},
+      {name:'Multithreading',type:'core'},
+      {name:'JDBC (DB Connectivity)',type:'core'},
+    ],
+    jobReadyExtra:[
+      {name:'Maven / Gradle',type:'extra'},
+      {name:'Git & GitHub',type:'extra'},
+      {name:'Basic SQL',type:'extra'},
+      {name:'JUnit Testing',type:'extra'},
+      {name:'REST API basics',type:'extra'},
+      {name:'Linux CLI',type:'extra'},
+    ],
+    pros:['Huge job market in India','Language used in top MNCs (TCS, Infosys, Wipro)','Strong foundation for Java Advance & Android','High job stability','Well-documented, massive community'],
+    cons:['Verbose syntax compared to Python','Slower to build prototypes','Android market share declining','Steep OOP learning curve for beginners'],
+    roles:[
+      {title:'Junior Java Developer',sal:'₹3–4.5 LPA',exp:'0–1 yr'},
+      {title:'Java Backend Dev',sal:'₹5–8 LPA',exp:'2–3 yr'},
+      {title:'Senior Java Engineer',sal:'₹10–16 LPA',exp:'4–6 yr'},
+      {title:'Java Architect',sal:'₹18–28 LPA',exp:'7+ yr'},
+    ],
+    trajectory:[
+      {year:'Year 0–1',role:'Junior Java Dev / Trainee',sal:'₹3–4.5 LPA'},
+      {year:'Year 2–3',role:'Java Backend Developer',sal:'₹5–8 LPA'},
+      {year:'Year 4–6',role:'Senior Java Engineer',sal:'₹10–16 LPA'},
+      {year:'Year 7+',role:'Lead / Java Architect',sal:'₹18–28 LPA'},
+    ],
+    c1:'#f59e0b',c2:'#fbbf24'
+  },
+  {
+    id:'java-advance',
+    name:'Java Advance',
+    icon:'🚀',
+    color:'#ef4444',
+    fee:'₹5,000',
+    prereq:'Java Core basics',
+    startSalary:4.5,
+    demand:85,
+    remote:68,
+    difficulty:'Hard',
+    desc:'Java Advance builds on Core to cover enterprise frameworks like Spring Boot, Hibernate ORM, microservices architecture, and REST API development. This is the skill set powering the backends of Flipkart, Zomato, Paytm, and most Indian fintech startups.',
+    usedIn:['Fintech Backends','E-commerce APIs','Microservices','Enterprise CRMs','Healthcare Platforms','EdTech Backends'],
+    coreSkills:[
+      {name:'Spring Boot',type:'core'},
+      {name:'Spring MVC & REST',type:'core'},
+      {name:'Hibernate / JPA ORM',type:'core'},
+      {name:'Microservices Architecture',type:'core'},
+      {name:'JWT Authentication',type:'core'},
+      {name:'Spring Security',type:'core'},
+      {name:'Maven / Gradle Build',type:'core'},
+      {name:'Docker basics',type:'core'},
+    ],
+    jobReadyExtra:[
+      {name:'AWS / GCP basics',type:'extra'},
+      {name:'Redis Caching',type:'extra'},
+      {name:'Kafka / RabbitMQ',type:'extra'},
+      {name:'PostgreSQL / MySQL',type:'extra'},
+      {name:'CI/CD Pipelines',type:'extra'},
+      {name:'Kubernetes basics',type:'extra'},
+    ],
+    pros:['Spring Boot dominates Indian enterprise','High-paying roles at startups & MNCs','Strong demand for microservices devs','Excellent job security','Scales to senior roles quickly'],
+    cons:['Requires solid Java Core base','Steep learning curve (Spring ecosystem is vast)','Configuration-heavy early on','Slower market shift vs Node/Python for startups'],
+    roles:[
+      {title:'Java Spring Dev',sal:'₹4–6 LPA',exp:'0–1 yr'},
+      {title:'Backend Engineer',sal:'₹7–11 LPA',exp:'2–3 yr'},
+      {title:'Senior Backend Dev',sal:'₹13–20 LPA',exp:'4–6 yr'},
+      {title:'Principal Engineer',sal:'₹22–35 LPA',exp:'7+ yr'},
+    ],
+    trajectory:[
+      {year:'Year 0–1',role:'Java Spring Developer',sal:'₹4–6 LPA'},
+      {year:'Year 2–3',role:'Backend API Engineer',sal:'₹7–11 LPA'},
+      {year:'Year 4–6',role:'Senior Backend Developer',sal:'₹13–20 LPA'},
+      {year:'Year 7+',role:'Principal / Staff Engineer',sal:'₹22–35 LPA'},
+    ],
+    c1:'#ef4444',c2:'#f97316'
+  },
+  {
+    id:'python',
+    name:'Python',
+    icon:'🐍',
+    color:'#3b82f6',
+    fee:'₹5,000',
+    prereq:'None',
+    startSalary:4.2,
+    demand:95,
+    remote:75,
+    difficulty:'Easy–Medium',
+    desc:'Python is the world\'s most versatile and beginner-friendly language. Used in web development, data science, automation, AI, and scripting. Python developers are among the most hired in 2024–25, with explosive demand from AI startups and tech companies.',
+    usedIn:['Web Development (Django/Flask)','Data Science','AI & Machine Learning','DevOps Automation','Scripting & Tools','Research & Academia'],
+    coreSkills:[
+      {name:'Python Syntax & OOPs',type:'core'},
+      {name:'Data Structures (lists, dicts)',type:'core'},
+      {name:'File Handling',type:'core'},
+      {name:'Libraries: NumPy, Pandas',type:'core'},
+      {name:'Django / Flask basics',type:'core'},
+      {name:'Regular Expressions',type:'core'},
+      {name:'Virtual Environments',type:'core'},
+      {name:'API Calls & JSON',type:'core'},
+    ],
+    jobReadyExtra:[
+      {name:'FastAPI / Django REST',type:'extra'},
+      {name:'PostgreSQL + SQLAlchemy',type:'extra'},
+      {name:'Git & GitHub',type:'extra'},
+      {name:'Docker basics',type:'extra'},
+      {name:'Basic ML (scikit-learn)',type:'extra'},
+      {name:'Unit Testing (pytest)',type:'extra'},
+    ],
+    pros:['Fastest growing language globally','Gateway to Data Science & AI careers','Simple syntax — quick to learn','Huge library ecosystem','Very high demand in 2025'],
+    cons:['Slower execution than Java/C++','Not ideal for mobile development','Global Interpreter Lock limits threading','Dynamic typing can cause runtime bugs'],
+    roles:[
+      {title:'Python Developer',sal:'₹3.5–5 LPA',exp:'0–1 yr'},
+      {title:'Backend / Django Dev',sal:'₹6–9 LPA',exp:'2–3 yr'},
+      {title:'Senior Python Engineer',sal:'₹11–18 LPA',exp:'4–6 yr'},
+      {title:'Principal / ML Engineer',sal:'₹20–35 LPA',exp:'7+ yr'},
+    ],
+    trajectory:[
+      {year:'Year 0–1',role:'Junior Python Developer',sal:'₹3.5–5 LPA'},
+      {year:'Year 2–3',role:'Backend / Automation Dev',sal:'₹6–9 LPA'},
+      {year:'Year 4–6',role:'Senior Engineer / DS',sal:'₹11–18 LPA'},
+      {year:'Year 7+',role:'Lead Engineer / ML Eng.',sal:'₹20–35 LPA'},
+    ],
+    c1:'#3b82f6',c2:'#6366f1'
+  },
+  {
+    id:'cloud',
+    name:'Cloud Computing',
+    icon:'☁️',
+    color:'#06b6d4',
+    fee:'₹5,000',
+    prereq:'None',
+    startSalary:5.0,
+    demand:92,
+    remote:80,
+    difficulty:'Medium',
+    desc:'Cloud Computing is the backbone of every modern digital service. AWS, Azure, and GCP power Netflix, Amazon, Airtel, and every startup you know. Cloud professionals command premium salaries and global remote opportunities — one of the highest-ROI skills of the 2020s.',
+    usedIn:['Cloud Infrastructure','DevOps & SRE','Startup Architecture','Enterprise Migration','Cybersecurity','Big Data Platforms'],
+    coreSkills:[
+      {name:'AWS / Azure / GCP Fundamentals',type:'core'},
+      {name:'Virtual Machines & EC2',type:'core'},
+      {name:'Cloud Storage (S3, Blob)',type:'core'},
+      {name:'Networking (VPC, Subnets)',type:'core'},
+      {name:'IAM & Security Groups',type:'core'},
+      {name:'Containerisation (Docker)',type:'core'},
+      {name:'Serverless (Lambda)',type:'core'},
+      {name:'Monitoring (CloudWatch)',type:'core'},
+    ],
+    jobReadyExtra:[
+      {name:'Terraform (IaC)',type:'extra'},
+      {name:'Kubernetes (K8s)',type:'extra'},
+      {name:'CI/CD (GitHub Actions)',type:'extra'},
+      {name:'Linux Administration',type:'extra'},
+      {name:'AWS Certified Cloud Practitioner',type:'extra'},
+      {name:'Bash Scripting',type:'extra'},
+    ],
+    pros:['Extremely high demand globally','Remote-friendly — work for US companies from India','Certifications boost salary significantly','Field is broad — many specialisations','Cloud market growing 17% YoY'],
+    cons:['Costs money to practise (cloud bills)','Constantly evolving — must keep learning','Requires some Linux/networking foundation','Certifications are expensive'],
+    roles:[
+      {title:'Cloud Support Associate',sal:'₹4–6 LPA',exp:'0–1 yr'},
+      {title:'Cloud Engineer',sal:'₹7–12 LPA',exp:'2–3 yr'},
+      {title:'Senior Cloud Architect',sal:'₹15–25 LPA',exp:'4–6 yr'},
+      {title:'Principal Cloud Architect',sal:'₹25–45 LPA',exp:'7+ yr'},
+    ],
+    trajectory:[
+      {year:'Year 0–1',role:'Cloud Support / Junior Admin',sal:'₹4–6 LPA'},
+      {year:'Year 2–3',role:'Cloud Engineer (AWS/Azure)',sal:'₹7–12 LPA'},
+      {year:'Year 4–6',role:'Senior Cloud Architect',sal:'₹15–25 LPA'},
+      {year:'Year 7+',role:'Principal Cloud Architect',sal:'₹25–45 LPA'},
+    ],
+    c1:'#06b6d4',c2:'#0ea5e9'
+  },
+  {
+    id:'data-analytics',
+    name:'Data Analytics with AI Tools',
+    icon:'📊',
+    color:'#8b5cf6',
+    fee:'₹5,000',
+    prereq:'None',
+    startSalary:4.8,
+    demand:90,
+    remote:72,
+    difficulty:'Medium',
+    desc:'Data is the new oil — and analysts are the refiners. This program teaches you to extract insights from large datasets using Python, SQL, Power BI, Excel, and modern AI tools. Data analysts are among the top 5 most in-demand roles in India 2025, across every industry from banking to healthcare.',
+    usedIn:['Business Intelligence','E-commerce Analytics','Banking & Finance','Healthcare Analytics','Marketing Analytics','Consulting & Strategy'],
+    coreSkills:[
+      {name:'Python for Data (Pandas, NumPy)',type:'core'},
+      {name:'SQL & Database Querying',type:'core'},
+      {name:'Data Visualization (Matplotlib)',type:'core'},
+      {name:'Power BI / Tableau',type:'core'},
+      {name:'Statistics & Probability',type:'core'},
+      {name:'Excel Advanced (Pivot, VLOOKUP)',type:'core'},
+      {name:'Data Cleaning & EDA',type:'core'},
+      {name:'AI Tools (ChatGPT, Copilot)',type:'core'},
+    ],
+    jobReadyExtra:[
+      {name:'Machine Learning basics',type:'extra'},
+      {name:'Google Analytics',type:'extra'},
+      {name:'A/B Testing',type:'extra'},
+      {name:'Apache Spark (big data)',type:'extra'},
+      {name:'Business Communication',type:'extra'},
+      {name:'Looker / Metabase',type:'extra'},
+    ],
+    pros:['Relevant in every industry','No heavy coding required — accessible','AI tools multiplying analyst productivity','Strong demand in banking, FMCG, e-commerce','Clear career growth path to Data Science'],
+    cons:['Can be seen as less technical than SWE','Requires strong business domain knowledge','Analyst roles in India pay less than pure SWE initially','Dashboard tools change frequently'],
+    roles:[
+      {title:'Data Analyst',sal:'₹4–6 LPA',exp:'0–1 yr'},
+      {title:'Senior Data Analyst',sal:'₹7–11 LPA',exp:'2–3 yr'},
+      {title:'Data / Analytics Lead',sal:'₹12–20 LPA',exp:'4–6 yr'},
+      {title:'Analytics Manager / DS',sal:'₹20–35 LPA',exp:'7+ yr'},
+    ],
+    trajectory:[
+      {year:'Year 0–1',role:'Junior Data Analyst',sal:'₹4–6 LPA'},
+      {year:'Year 2–3',role:'Senior Data Analyst',sal:'₹7–11 LPA'},
+      {year:'Year 4–6',role:'Analytics Lead / BI Lead',sal:'₹12–20 LPA'},
+      {year:'Year 7+',role:'Analytics Manager / Data Scientist',sal:'₹20–35 LPA'},
+    ],
+    c1:'#8b5cf6',c2:'#a78bfa'
+  },
+  {
+    id:'fullstack',
+    name:'Full Stack Development',
+    icon:'⚡',
+    color:'#f97316',
+    fee:'₹5,500',
+    prereq:'Java Core basics',
+    startSalary:5.0,
+    demand:93,
+    remote:78,
+    difficulty:'Hard',
+    desc:'Full Stack developers build entire web applications — from the user interface to the server logic to the database. The most versatile and well-compensated web development role. You\'ll work with Java/Spring Boot (backend), React (frontend), and SQL/NoSQL databases, covering the complete product lifecycle.',
+    usedIn:['SaaS Product Companies','E-commerce Platforms','EdTech & HealthTech','Fintech Web Apps','Agency & Freelance','Startup MVPs'],
+    coreSkills:[
+      {name:'HTML5, CSS3, JavaScript',type:'core'},
+      {name:'React.js (Frontend)',type:'core'},
+      {name:'Java Spring Boot (Backend)',type:'core'},
+      {name:'REST API Design',type:'core'},
+      {name:'MySQL / PostgreSQL',type:'core'},
+      {name:'MongoDB (NoSQL)',type:'core'},
+      {name:'JWT Auth & Sessions',type:'core'},
+      {name:'Git & GitHub',type:'core'},
+    ],
+    jobReadyExtra:[
+      {name:'TypeScript',type:'extra'},
+      {name:'Redis Caching',type:'extra'},
+      {name:'Docker & CI/CD',type:'extra'},
+      {name:'AWS Deployment (EC2, S3)',type:'extra'},
+      {name:'Testing (JUnit, Jest)',type:'extra'},
+      {name:'System Design basics',type:'extra'},
+    ],
+    pros:['Can build & ship complete products solo','Very high demand at startups & product companies','Freelance potential is extremely high','Best of both frontend & backend worlds','Gateway to founding your own startup'],
+    cons:['Requires mastering two completely different skill sets','Broad = sometimes seen as shallow specialist','Staying updated with rapidly changing frontend frameworks is tiring','Higher initial effort to become job-ready'],
+    roles:[
+      {title:'Full Stack Developer',sal:'₹4.5–7 LPA',exp:'0–1 yr'},
+      {title:'Senior Full Stack Dev',sal:'₹8–14 LPA',exp:'2–3 yr'},
+      {title:'Lead / Staff Engineer',sal:'₹15–25 LPA',exp:'4–6 yr'},
+      {title:'Engineering Manager / CTO',sal:'₹25–50 LPA',exp:'7+ yr'},
+    ],
+    trajectory:[
+      {year:'Year 0–1',role:'Full Stack Developer',sal:'₹4.5–7 LPA'},
+      {year:'Year 2–3',role:'Senior Full Stack Dev',sal:'₹8–14 LPA'},
+      {year:'Year 4–6',role:'Lead Engineer / Tech Lead',sal:'₹15–25 LPA'},
+      {year:'Year 7+',role:'Engineering Manager / CTO',sal:'₹25–50 LPA'},
+    ],
+    c1:'#f97316',c2:'#fb923c'
+  },
+  {
+    id:'mern',
+    name:'MERN Stack',
+    icon:'🌐',
+    color:'#10b981',
+    fee:'₹5,500',
+    prereq:'None',
+    startSalary:4.8,
+    demand:89,
+    remote:82,
+    difficulty:'Medium–Hard',
+    desc:'MERN Stack (MongoDB, Express.js, React, Node.js) is the dominant JavaScript-everywhere stack powering thousands of Indian startups and global SaaS products. One language (JavaScript/TypeScript) for the entire application — frontend, backend, and database interactions — making you extremely versatile.',
+    usedIn:['SaaS Startups','Real-time Applications','Social Platforms','MarTech Tools','Internal Tools','Freelance Projects'],
+    coreSkills:[
+      {name:'JavaScript (ES6+)',type:'core'},
+      {name:'React.js + Hooks',type:'core'},
+      {name:'Node.js & Express.js',type:'core'},
+      {name:'MongoDB & Mongoose',type:'core'},
+      {name:'REST API Development',type:'core'},
+      {name:'JWT & OAuth Auth',type:'core'},
+      {name:'Redux / Context API',type:'core'},
+      {name:'Git & Deployment',type:'core'},
+    ],
+    jobReadyExtra:[
+      {name:'TypeScript',type:'extra'},
+      {name:'Next.js (SSR/SSG)',type:'extra'},
+      {name:'Socket.io (Real-time)',type:'extra'},
+      {name:'AWS / Vercel Deployment',type:'extra'},
+      {name:'Testing (Jest, Supertest)',type:'extra'},
+      {name:'Docker basics',type:'extra'},
+    ],
+    pros:['Single language for full product — massive productivity boost','Most popular stack in Indian startups 2025','Huge freelancing opportunity','Strong global remote job market','Very active community & resources'],
+    cons:['JavaScript quirks can confuse beginners','MongoDB lacks strong data integrity vs SQL','Node.js not ideal for CPU-intensive tasks','Rapidly evolving ecosystem — framework fatigue'],
+    roles:[
+      {title:'MERN Developer',sal:'₹4–6 LPA',exp:'0–1 yr'},
+      {title:'Senior MERN / Node Dev',sal:'₹7–12 LPA',exp:'2–3 yr'},
+      {title:'Lead Frontend/Backend Dev',sal:'₹13–22 LPA',exp:'4–6 yr'},
+      {title:'VP Engineering / CTO',sal:'₹22–45 LPA',exp:'7+ yr'},
+    ],
+    trajectory:[
+      {year:'Year 0–1',role:'MERN Stack Developer',sal:'₹4–6 LPA'},
+      {year:'Year 2–3',role:'Senior MERN / Node Dev',sal:'₹7–12 LPA'},
+      {year:'Year 4–6',role:'Lead Engineer',sal:'₹13–22 LPA'},
+      {year:'Year 7+',role:'VP Engineering / CTO',sal:'₹22–45 LPA'},
+    ],
+    c1:'#10b981',c2:'#34d399'
+  },
+  {
+    id:'aiml',
+    name:'AI & Machine Learning',
+    icon:'🤖',
+    color:'#e11d48',
+    fee:'₹5,500',
+    prereq:'Python basics required',
+    startSalary:6.0,
+    demand:98,
+    remote:76,
+    difficulty:'Hard',
+    desc:'AI & ML is the most exciting and fastest-growing field in tech today. You\'ll learn to build models that can predict, classify, and generate — from recommendation engines to image recognition to LLM-powered apps. India\'s AI market is projected to reach $7.8 billion by 2025, with ML engineers among the highest-paid freshers.',
+    usedIn:['AI Product Companies','Healthcare Diagnostics','Fintech Risk Models','Recommendation Systems','Computer Vision','NLP & Chatbots'],
+    coreSkills:[
+      {name:'Python (NumPy, Pandas)',type:'core'},
+      {name:'Machine Learning (scikit-learn)',type:'core'},
+      {name:'Deep Learning (TensorFlow/Keras)',type:'core'},
+      {name:'Data Preprocessing & EDA',type:'core'},
+      {name:'Supervised & Unsupervised Learning',type:'core'},
+      {name:'Model Evaluation & Tuning',type:'core'},
+      {name:'Natural Language Processing',type:'core'},
+      {name:'Generative AI & LLM APIs',type:'core'},
+    ],
+    jobReadyExtra:[
+      {name:'PyTorch',type:'extra'},
+      {name:'MLflow (Model Tracking)',type:'extra'},
+      {name:'LangChain / RAG Systems',type:'extra'},
+      {name:'Cloud ML (AWS SageMaker)',type:'extra'},
+      {name:'Mathematics (Linear Algebra, Calculus)',type:'extra'},
+      {name:'Docker for ML Serving',type:'extra'},
+    ],
+    pros:['Highest demand in 2025 — AI boom','Highest paying fresher role in this list','Globally recognised skill — remote opportunities worldwide','Cutting-edge, intellectually exciting work','Access to research roles & academia'],
+    cons:['Steepest learning curve — requires maths (linear algebra, statistics, calculus)','Models require expensive GPU infrastructure to train','Results are non-deterministic — debugging is hard','Requires strong Python foundation first'],
+    roles:[
+      {title:'ML Engineer Trainee',sal:'₹5–8 LPA',exp:'0–1 yr'},
+      {title:'ML Engineer',sal:'₹10–16 LPA',exp:'2–3 yr'},
+      {title:'Senior ML Engineer',sal:'₹18–28 LPA',exp:'4–6 yr'},
+      {title:'Principal AI Scientist',sal:'₹30–60 LPA',exp:'7+ yr'},
+    ],
+    trajectory:[
+      {year:'Year 0–1',role:'ML / AI Engineer Trainee',sal:'₹5–8 LPA'},
+      {year:'Year 2–3',role:'ML Engineer',sal:'₹10–16 LPA'},
+      {year:'Year 4–6',role:'Senior ML / AI Engineer',sal:'₹18–28 LPA'},
+      {year:'Year 7+',role:'Principal AI Scientist / Head of AI',sal:'₹30–60 LPA'},
+    ],
+    c1:'#e11d48',c2:'#f43f5e'
+  }
+];
+
+const faqs = [
+  {q:'Which program is best if I have no prior coding experience?',a:'Python or MERN Stack are the best choices for beginners. Python has the simplest syntax in the world and covers the most career paths (web dev, data science, AI). MERN Stack uses JavaScript, which is easy to read and gives you visible results immediately (building websites), keeping motivation high.'},
+  {q:'Which program has the highest salary potential in India?',a:'AI & Machine Learning has the highest ceiling (₹30–60 LPA at senior level), followed by Full Stack / Cloud / Java Advance. However, salary depends heavily on the company, location (Bengaluru > Hyderabad > Pune > Delhi), and whether you work at a product company vs a service company.'},
+  {q:'Can I switch from one track to another after the training?',a:'Yes! Many skills overlap. Python is the common thread — if you pick Python or AI/ML now, you can easily branch into Data Analytics or Full Stack later. Java Core students can move into Java Advance. The industry values T-shaped professionals (broad knowledge + deep in one area).'},
+  {q:'Is the ₹2000 registration deadline (Feb 28) already passed?',a:'Yes, the Feb 28 deadline has passed. However, contact the Training & Placement Cell immediately to check if late registration is possible. Explain your intent clearly — cells often accommodate late registrations before training actually begins.'},
+  {q:'What is the difference between Full Stack (Java) and MERN Stack?',a:'Full Stack uses Java (Spring Boot) for the backend + React for frontend. MERN uses Node.js (JavaScript) for backend + React for frontend. MERN is more startup-friendly and has more freelance demand. Full Stack Java is preferred by larger companies (banks, MNCs, enterprise). Both are excellent choices.'},
+  {q:'Do I need a good laptop or PC to complete these trainings?',a:'Any modern laptop with 8GB RAM and an SSD will work fine for most programs. AI/ML is the exception — a Google Colab or Kaggle account (both free) will handle GPU-intensive training so you don\'t need an expensive machine.'},
+  {q:'Will the Soft Skills training actually help?',a:'Absolutely yes. Studies show that 85% of job success is attributed to well-developed soft skills and only 15% to technical skills (Harvard/Stanford research). Communication, problem-solving, and professional behaviour are what interviewers evaluate beyond technical rounds.'},
+  {q:'How do I secure a job after training? What else do I need?',a:'Build 2–3 portfolio projects on GitHub. Create a LinkedIn profile. Practice DSA problems on LeetCode (at least 100 easy/medium). Prepare for HR interviews. Apply on Naukri, LinkedIn, Indeed, and directly on company career pages. Join communities on Discord/Telegram for your chosen stack. Networking is as important as skills.'},
+];
+
+// ─── RENDER PROGRAMS ──────────────────────────────
+const grid = document.getElementById('programsGrid');
+programs.forEach((p,i) => {
+  const card = document.createElement('div');
+  card.className = 'prog-card';
+  card.style.setProperty('--c', p.color);
+  card.style.animationDelay = `${i*0.08}s`;
+  card.innerHTML = `
+    <div class="prog-icon" style="background:${p.color}20;color:${p.color}">${p.icon}</div>
+    <div class="prog-name">${p.name}</div>
+    <div class="prog-fee">💰 ${p.fee}</div>
+    <div class="prog-desc">${p.desc.slice(0,120)}…</div>
+    <div class="prog-tags">
+      ${p.usedIn.slice(0,3).map(u=>`<span class="prog-tag">${u}</span>`).join('')}
+    </div>
+    <button class="prog-more-btn" onclick="openModal('${p.id}')">Explore full guide →</button>
+  `;
+  grid.appendChild(card);
+});
+
+// ─── MODAL ──────────────────────────────────────
+function openModal(id){
+  const p = programs.find(x=>x.id===id);
+  if(!p) return;
+  const m = document.getElementById('modalContent');
+  m.innerHTML = `
+    <div class="modal-header">
+      <div>
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem">
+          <span style="font-size:1.8rem">${p.icon}</span>
+          <h2 style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800">${p.name}</h2>
+        </div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+          <span class="prog-fee">💰 ${p.fee}</span>
+          <span style="font-size:.75rem;padding:.2rem .7rem;border-radius:50px;background:#f0f4ff;color:var(--accent2);border:1px solid #c8d4ff">⚠️ Prereq: ${p.prereq}</span>
+          <span style="font-size:.75rem;padding:.2rem .7rem;border-radius:50px;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📈 Demand: ${p.demand}/100</span>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:.92rem;line-height:1.75;color:var(--muted)">${p.desc}</p>
+
+      <div class="modal-section-title">🛠 Where is this used?</div>
+      <div class="prog-tags" style="margin-top:.3rem">
+        ${p.usedIn.map(u=>`<span class="prog-tag" style="font-size:.75rem;padding:.3rem .8rem">${u}</span>`).join('')}
+      </div>
+
+      <div class="modal-section-title">📚 Core Training Skills</div>
+      <div class="skill-grid">
+        ${p.coreSkills.map(s=>`<div class="skill-pill core">${s.name}</div>`).join('')}
+      </div>
+
+      <div class="modal-section-title">🎯 Job-Ready Extra Skills (Learn After Training)</div>
+      <p style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">These are NOT covered in the 70–80 hr training but are essential to land a job at good companies.</p>
+      <div class="skill-grid">
+        ${p.jobReadyExtra.map(s=>`<div class="skill-pill extra">${s.name}</div>`).join('')}
+      </div>
+
+      <div class="modal-section-title">⚖️ Pros & Cons</div>
+      <div class="pros-cons">
+        <div class="pro-list">
+          <h4>✅ Advantages</h4>
+          <ul>${p.pros.map(pr=>`<li>${pr}</li>`).join('')}</ul>
+        </div>
+        <div class="con-list">
+          <h4>⚠️ Challenges</h4>
+          <ul>${p.cons.map(c=>`<li>${c}</li>`).join('')}</ul>
+        </div>
+      </div>
+
+      <div class="modal-section-title">💼 Job Roles & Salary (India 2025)</div>
+      <div class="roles-grid">
+        ${p.roles.map(r=>`
+          <div class="role-card">
+            <div class="role-title">${r.title}</div>
+            <div class="role-salary">${r.sal}</div>
+            <div class="role-exp">Experience: ${r.exp}</div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="modal-section-title">🗺 10-Year Career Trajectory</div>
+      <div style="margin-top:.3rem">
+        ${p.trajectory.map((t,i)=>`
+          <div class="traj-step">
+            <span class="traj-year" style="background:${p.color}">${t.year}</span>
+            <div><div class="traj-role">${t.role}</div><div class="traj-sal">${t.sal}</div></div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div style="margin-top:2rem;padding:1rem 1.2rem;background:var(--paper);border-radius:12px;border-left:3px solid ${p.color}">
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.65"><strong style="color:var(--ink)">💡 Career Counsellor's Note:</strong> This training gives you a strong foundation, but the students who get hired quickly are the ones who build real projects, maintain an active GitHub, and practice interview problems consistently after training. The ₹5000 you invest here is your starting point — your dedication is the multiplier.</p>
+      </div>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('modalOverlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('modalOverlay')) closeModal();
+});
+
+// ─── CHARTS ──────────────────────────────────────
+const labels = programs.map(p=>p.name.length>12?p.name.slice(0,12)+'…':p.name);
+const colors = programs.map(p=>p.color);
+
+// Starting salary bar
+new Chart(document.getElementById('startSalChart'),{
+  type:'bar',
+  data:{
+    labels,
+    datasets:[{
+      label:'Starting LPA',
+      data:programs.map(p=>p.startSalary),
+      backgroundColor:colors.map(c=>c+'cc'),
+      borderColor:colors,
+      borderWidth:1.5,
+      borderRadius:6,
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:10},callback:v=>'₹'+v+'L'}},
+      x:{grid:{display:false},ticks:{font:{size:9}}}
+    }
+  }
+});
+
+// Growth line chart
+const growthData = {
+  java:{data:[3.5,4.5,6.5,9,13,18],color:'#f59e0b'},
+  cloud:{data:[5,7,10,15,20,28],color:'#06b6d4'},
+  fullstack:{data:[5,7,10,15,21,30],color:'#f97316'},
+  aiml:{data:[6,9,14,20,28,38],color:'#e11d48'},
+  python:{data:[4.2,6,8.5,12,16,22],color:'#3b82f6'},
+};
+new Chart(document.getElementById('growthChart'),{
+  type:'line',
+  data:{
+    labels:['Year 0','Year 1','Year 2','Year 3','Year 4','Year 5'],
+    datasets:[
+      {label:'AI & ML',data:growthData.aiml.data,borderColor:growthData.aiml.color,backgroundColor:'transparent',pointRadius:3,tension:.4,borderWidth:2},
+      {label:'Full Stack',data:growthData.fullstack.data,borderColor:growthData.fullstack.color,backgroundColor:'transparent',pointRadius:3,tension:.4,borderWidth:2},
+      {label:'Cloud',data:growthData.cloud.data,borderColor:growthData.cloud.color,backgroundColor:'transparent',pointRadius:3,tension:.4,borderWidth:2},
+      {label:'Python',data:growthData.python.data,borderColor:growthData.python.color,backgroundColor:'transparent',pointRadius:3,tension:.4,borderWidth:2},
+      {label:'Java Core',data:growthData.java.data,borderColor:growthData.java.color,backgroundColor:'transparent',pointRadius:3,tension:.4,borderWidth:2},
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10,padding:8}}},
+    scales:{
+      y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:10},callback:v=>'₹'+v+'L'}},
+      x:{grid:{display:false},ticks:{font:{size:9}}}
+    }
+  }
+});
+
+// Demand horizontal bar
+new Chart(document.getElementById('demandChart'),{
+  type:'bar',
+  data:{
+    labels,
+    datasets:[{
+      data:programs.map(p=>p.demand),
+      backgroundColor:colors.map(c=>c+'bb'),
+      borderColor:colors,
+      borderWidth:1.5,
+      borderRadius:4,
+    }]
+  },
+  options:{
+    indexAxis:'y',
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{max:100,grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:9},callback:v=>v}},
+      y:{grid:{display:false},ticks:{font:{size:9}}}
+    }
+  }
+});
+
+// Remote doughnut
+new Chart(document.getElementById('remoteChart'),{
+  type:'doughnut',
+  data:{
+    labels:labels,
+    datasets:[{
+      data:programs.map(p=>p.remote),
+      backgroundColor:colors.map(c=>c+'cc'),
+      borderColor:colors,
+      borderWidth:1.5,
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'right',labels:{font:{size:9},boxWidth:10,padding:6}}
+    },
+    cutout:'60%'
+  }
+});
+
+// ─── TRAJECTORY GRID ────────────────────────────
+const tgrid = document.getElementById('trajGrid');
+programs.forEach(p=>{
+  const card = document.createElement('div');
+  card.className='traj-card reveal';
+  card.style.setProperty('--c1',p.c1);
+  card.style.setProperty('--c2',p.c2);
+  card.innerHTML = `
+    <div class="traj-title">${p.icon} ${p.name}</div>
+    ${p.trajectory.map(t=>`
+      <div class="traj-step">
+        <span class="traj-year">${t.year}</span>
+        <div>
+          <div class="traj-role">${t.role}</div>
+          <div class="traj-sal">${t.sal}</div>
+        </div>
+      </div>
+    `).join('')}
+  `;
+  tgrid.appendChild(card);
+});
+
+// ─── COMPARE TABLE ────────────────────────────
+const tbody = document.getElementById('compareBody');
+programs.forEach(p=>{
+  const diffColor = {
+    'Easy–Medium':'tag-high','Medium':'tag-med','Medium–Hard':'tag-med','Hard':'tag-low','None':'tag-high'
+  };
+  const demandTag = p.demand>=93?'tag-high':p.demand>=85?'tag-med':'tag-low';
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${p.icon} ${p.name}</td>
+    <td>${p.fee}</td>
+    <td>${p.prereq}</td>
+    <td style="color:var(--green);font-weight:600">₹${p.startSalary} LPA</td>
+    <td><span class="tag-badge ${demandTag}">${p.demand}/100</span></td>
+    <td><span class="tag-badge ${diffColor[p.difficulty]||'tag-med'}">${p.difficulty}</span></td>
+    <td>${p.remote}%</td>
+  `;
+  tbody.appendChild(row);
+});
+
+// ─── FAQ ──────────────────────────────────────
+const faqList = document.getElementById('faqList');
+faqs.forEach(f=>{
+  const item = document.createElement('div');
+  item.className='faq-item';
+  item.innerHTML=`
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>${f.q}</span>
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-a">${f.a}</div>
+  `;
+  faqList.appendChild(item);
+});
+function toggleFaq(el){
+  const item = el.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+}
+
+// ─── MARQUEE ──────────────────────────────────
+const items = ['Java Core','Java Advance','Python','Cloud Computing','Data Analytics','Full Stack','MERN Stack','AI & Machine Learning'];
+const track = document.getElementById('mTrack');
+[...items,...items,...items,...items].forEach((item,i)=>{
+  const span = document.createElement('span');
+  span.textContent = item;
+  if(i%3===1) span.className='hi';
+  track.appendChild(span);
+});
+
+// ─── SCROLL REVEAL ────────────────────────────
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// Observe dynamically added traj cards
+setTimeout(()=>{
+  document.querySelectorAll('.traj-card').forEach(el=>observer.observe(el));
+},100);
+</script>
+</body>
+</html>
